@@ -37,9 +37,9 @@
     <!-- add cards -->
     <div id="addCard">
         <div>
-            <input type="text" id="title" placeholder="Title Here">
-            <input type="text" id="desc" placeholder="Description Here">
-            <button onclick="createACard()">Add Item</button>
+            <input type="text" id="title" placeholder="Title Here" oninput="validateAddButton()">
+            <input type="text" id="desc" placeholder="Description Here" oninput="validateAddButton()">
+            <button onclick="handleClick()" id="addItem" disabled>Add Item</button>
         </div>
     </div>
 

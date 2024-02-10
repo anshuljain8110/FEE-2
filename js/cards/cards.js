@@ -1,29 +1,69 @@
-var _a, _b, _c, _d, _e;
-console.log('hi');
-//   <div class="card-body">
-//     <h5 class="card-title">Card title</h5>
-//     <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-//     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-//     <a href="#" class="card-link">Card link</a>
-//     <a href="#" class="card-link">Another link</a>
-//   </div>
-var createACard = function () {
-    var _a;
-    var card = document.createElement("div");
-    card.className = "card";
-    var text1 = document.createElement('h5');
-    var test2 = document.createElement('p');
-    text1.innerHTML = "h5 is here";
-    test2.innerHTML = 'paragraph is here';
-    card.appendChild(text1);
-    card.appendChild(test2);
-    var yo = (_a = document.getElementById("title")) === null || _a === void 0 ? void 0 : _a.value;
-    console.log(yo);
-    return card;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
-console.log(createACard());
-(_a = document.getElementById("cards")) === null || _a === void 0 ? void 0 : _a.appendChild(createACard());
-(_b = document.getElementById("cards")) === null || _b === void 0 ? void 0 : _b.appendChild(createACard());
-(_c = document.getElementById("cards")) === null || _c === void 0 ? void 0 : _c.appendChild(createACard());
-(_d = document.getElementById("cards")) === null || _d === void 0 ? void 0 : _d.appendChild(createACard());
-(_e = document.getElementById("cards")) === null || _e === void 0 ? void 0 : _e.appendChild(createACard());
+console.log('hi');
+function createACard(text1, text2) {
+    var card = document.createElement('div');
+    card.className = 'card';
+    var h5 = document.createElement('h5');
+    var p = document.createElement('p');
+    h5.innerHTML = text1;
+    p.innerHTML = text2;
+    card.appendChild(h5);
+    card.appendChild(p);
+    return card;
+}
+function validateAddButton() {
+    var _a, _b;
+    var bttn = document.getElementById("addItem");
+    if ((((_a = document.getElementById('title')) === null || _a === void 0 ? void 0 : _a.value) === "") ||
+        ((_b = document.getElementById('desc')) === null || _b === void 0 ? void 0 : _b.value) === "") {
+        bttn.disabled = true;
+    }
+    else {
+        bttn.disabled = false;
+    }
+}
+function initialSetup() {
+    if (!localStorage.getItem('feedata')) {
+        localStorage.setItem("feedata", JSON.stringify({ 'data': [] }));
+    }
+    populate();
+}
+function populate() {
+    var divToPopulate = document.getElementById('cards');
+    if (!divToPopulate) {
+        console.error("Element with id 'cards' not found.");
+        return;
+    }
+    divToPopulate.innerHTML = "";
+    var data = localStorage.getItem('feedata');
+    var obj = JSON.parse(data ? data : JSON.stringify({ 'data': [] }))['data'];
+    if (obj.length === 0) {
+        divToPopulate.innerHTML = "<div></div><h2>Looks like you have no note show😅 <br>Please add one</h2>";
+    }
+    console.log(obj);
+    for (var x = 0; x < obj.length; x++) {
+        divToPopulate.appendChild(createACard(obj[x]['title'], obj[x]['desc']));
+    }
+}
+function handleClick() {
+    var title = document.getElementById('title');
+    var desc = document.getElementById('desc');
+    var data = localStorage.getItem('feedata');
+    var arr = JSON.parse(data ? data : JSON.stringify({ 'data': [] }))['data'];
+    arr = __spreadArray(__spreadArray([], arr, true), [{ 'title': title === null || title === void 0 ? void 0 : title.value, 'desc': desc === null || desc === void 0 ? void 0 : desc.value }], false);
+    localStorage.setItem("feedata", JSON.stringify({ 'data': arr }));
+    title.value = "";
+    desc.value = "";
+    var btn = document.getElementById("addItem");
+    btn.disabled = true;
+    populate();
+}
+initialSetup();
