@@ -13,4 +13,14 @@
 #cards .card h5 {
   margin: 10px 0px;
   font-size: 25px;
+}
+@media screen and (max-width: 768px) {
+  #cards {
+    padding: 0 20px;
+    grid-template-columns: 1fr;
+  }
+  #cards .card {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
 }/*# sourceMappingURL=card.css.map */

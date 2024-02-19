@@ -17,7 +17,7 @@
     align-items: center;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.475);
 
-    >a {
+    > a {
         text-decoration: none;
         color: white;
         font-weight: 900;
@@ -38,11 +38,31 @@
                 margin: 0px 10px;
                 color: white;
                 border-radius: 10px;
-                transition: all .5s;
+                transition: all 0.5s;
             }
 
             a:hover {
                 background-color: rgba(0, 0, 0, 0.142);
+            }
+        }
+    }
+
+    // Media Query for smaller screens
+    @media screen and (max-width: 768px) {
+        padding: 15px 20px;
+
+        > a {
+            font-size: 20px;
+        }
+
+        ul {
+            margin-right: 20px;
+
+            li {
+                a {
+                    padding: 8px;
+                    margin: 0px 8px;
+                }
             }
         }
     }

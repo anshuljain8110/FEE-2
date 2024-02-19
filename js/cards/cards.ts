@@ -1,5 +1,3 @@
-
-
 console.log('hi');
 
 function createACard(text1:string,text2:string): HTMLDivElement {

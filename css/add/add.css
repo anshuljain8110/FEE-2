@@ -21,12 +21,12 @@
   border-bottom: 4px solid rgb(77, 77, 255);
   padding: 10px;
 }
-#addCard > div input::-moz-placeholder {
+#addCard > div input ::-moz-placeholder {
   color: white;
   font-weight: 500;
   font-size: 15px;
 }
-#addCard > div input::placeholder {
+#addCard > div input ::placeholder {
   color: white;
   font-weight: 500;
   font-size: 15px;
@@ -36,4 +36,15 @@
   border: 1px solid black;
   padding: 10px;
   border-radius: 7px;
+}
+@media screen and (max-width: 768px) {
+  #addCard {
+    padding: 0;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  #addCard > div {
+    grid-column: 1;
+    padding: 15px;
+    grid-column: 2;
+  }
 }/*# sourceMappingURL=add.css.map */
