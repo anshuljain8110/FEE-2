@@ -4,15 +4,23 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 30px;
-
     .card {
         padding: 30px;
         border: 2px solid black;
         border-radius: 20px;
-
         h5 {
             margin: 10px 0px;
             font-size: 25px;
+        }
+        .cardiv{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            button{
+                cursor: pointer;
+                background: none;
+                border: none;
+            }
         }
     }
 

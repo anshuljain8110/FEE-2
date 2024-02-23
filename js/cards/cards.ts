@@ -1,17 +1,28 @@
-console.log('hi');
-
-function createACard(text1:string,text2:string): HTMLDivElement {
+function createACard(text1:string,text2:string,i:number): HTMLDivElement {
   const card = document.createElement('div');
   card.className = 'card';
 
   const h5 = document.createElement('h5');
   const p = document.createElement('p');
+  const btn = document.createElement('button')
 
 
   h5.innerHTML = text1;
+  btn.innerHTML = '<i class="material-icons" style="color:red">delete</i>' 
+  btn.addEventListener('click',()=>{
+    let data = localStorage.getItem('feedata')
+    let arr = JSON.parse(data?data:JSON.stringify({'data':[]}))['data']
+    arr.splice(i, 1)
+    localStorage.setItem("feedata",JSON.stringify({'data':arr}))
+    initialSetup()
+  })
   p.innerHTML = text2;
 
-  card.appendChild(h5);
+  let carddiv = document.createElement('div')
+  carddiv.className = 'cardiv'
+  carddiv.appendChild(h5);
+  carddiv.append(btn)
+  card.appendChild(carddiv)
   card.appendChild(p);
 
   return card;
@@ -48,9 +59,8 @@ function populate(){
   if(obj.length===0){
     divToPopulate.innerHTML="<div></div><h2>Looks like you have no note show😅 <br>Please add one</h2>"
   }
-  console.log(obj)
   for(let x=0;x<obj.length;x++){
-    divToPopulate.appendChild(createACard(obj[x]['title'],obj[x]['desc']))
+    divToPopulate.appendChild(createACard(obj[x]['title'],obj[x]['desc'],x))
   }
 }
 
@@ -68,5 +78,5 @@ function handleClick() {
   populate()
 }
 
-
+// greet()
 initialSetup()

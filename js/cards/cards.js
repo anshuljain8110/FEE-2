@@ -7,15 +7,27 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-console.log('hi');
-function createACard(text1, text2) {
+function createACard(text1, text2, i) {
     var card = document.createElement('div');
     card.className = 'card';
     var h5 = document.createElement('h5');
     var p = document.createElement('p');
+    var btn = document.createElement('button');
     h5.innerHTML = text1;
+    btn.innerHTML = '<i class="material-icons" style="color:red">delete</i>';
+    btn.addEventListener('click', function () {
+        var data = localStorage.getItem('feedata');
+        var arr = JSON.parse(data ? data : JSON.stringify({ 'data': [] }))['data'];
+        arr.splice(i, 1);
+        localStorage.setItem("feedata", JSON.stringify({ 'data': arr }));
+        initialSetup();
+    });
     p.innerHTML = text2;
-    card.appendChild(h5);
+    var carddiv = document.createElement('div');
+    carddiv.className = 'cardiv';
+    carddiv.appendChild(h5);
+    carddiv.append(btn);
+    card.appendChild(carddiv);
     card.appendChild(p);
     return card;
 }
@@ -48,9 +60,8 @@ function populate() {
     if (obj.length === 0) {
         divToPopulate.innerHTML = "<div></div><h2>Looks like you have no note show😅 <br>Please add one</h2>";
     }
-    console.log(obj);
     for (var x = 0; x < obj.length; x++) {
-        divToPopulate.appendChild(createACard(obj[x]['title'], obj[x]['desc']));
+        divToPopulate.appendChild(createACard(obj[x]['title'], obj[x]['desc'], x));
     }
 }
 function handleClick() {
@@ -66,4 +77,5 @@ function handleClick() {
     btn.disabled = true;
     populate();
 }
+// greet()
 initialSetup();
